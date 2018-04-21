@@ -8,11 +8,16 @@
 
 bool LetterGame::onStart()
 {
-	scoreText.setFont( getDefaultFont() );
-	scoreText.setFillColor( sf::Color::Cyan );
-	scoreText.setPosition( 200, 0 );
+	bool status = true;
+	if ( !spawn<StatsDisplaying>( stats ) )
+		status = false;
+
 	timeSinceLastSpawn = rules.spawnInterval;
-	return spawnLetter();
+
+	if ( !spawnLetter() )
+		status = false;
+
+	return status;
 }
 
 bool LetterGame::onUpdate( float dt )
@@ -60,8 +65,6 @@ bool LetterGame::onDraw( sf::RenderTarget& target )
 		if ( !go.onDraw( target ) )
 			status = false;
 	} );
-	target.draw( scoreText );
-
 	return status;
 }
 
@@ -77,10 +80,12 @@ void LetterGame::removeDeadObjects()
 		bool wantDie = false;
 		std::visit( [&]( auto& go ) {
 			if ( wantDie = go.wantDie(); wantDie && go.tag() == "Letter" ) {
-				++score;
+				++stats.score;
 				++combo;
 			}
 		}, *it );
+
+		// what the fuck 
 		if ( wantDie )
 			it = gameObjects.erase( it );
 		else
@@ -89,8 +94,6 @@ void LetterGame::removeDeadObjects()
 
 	if ( combo > 1 )
 		log( Info, combo, " combo!" );
-
-	scoreText.setString( std::to_string( score * 100 ) );
 }
 
 bool LetterGame::spawnLetter()
@@ -98,6 +101,6 @@ bool LetterGame::spawnLetter()
 	auto ch = static_cast<char>( con::Random( static_cast<uint16_t>( 'A' ), static_cast<uint16_t>( 'Z' ) ) );
 	sf::Vector2f pos{ static_cast<float>( con::Random( 0, 12 ) * 25 ), rules.startYPos };
 	sf::Vector2f vel{ 0, rules.letterVelocity };
-	return spawn<Letter>( ch, pos, vel, rules.letterAcceleration );
 
+	return spawn<Letter>( ch, pos, vel, rules.letterAcceleration );
 }

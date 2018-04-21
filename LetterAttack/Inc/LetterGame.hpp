@@ -8,9 +8,10 @@
 #include <variant>
 
 #include "Framework.hpp"
+#include "StatsDisplaying.hpp"
 #include "Letter.hpp"
 
-using GameObjectsVariant = std::variant<Letter>;
+using GameObjectsVariant = std::variant<Letter, StatsDisplaying>;
 
 struct GameRules final
 {
@@ -40,9 +41,8 @@ public:
 private:
 	std::vector<GameObjectsVariant> gameObjects;
 	GameRules rules;
+	PlayerStats stats;
 	sf::Time timeSinceLastSpawn;
-	uint16_t score = 0;
-	sf::Text scoreText;
 
 	template <typename TLambda>
 	void loopEveryGameObject( TLambda&& lambda )

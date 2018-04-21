@@ -27,7 +27,6 @@ public:
 	}
 
 private:
-	inline const static sf::Font& defaultFont = getDefaultFont();
 	bool wantToDie = false;
 	sf::Keyboard::Key keyToPress;
 	float yAcceleration = 0;

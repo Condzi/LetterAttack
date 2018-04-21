@@ -7,6 +7,7 @@
 
 Letter::Letter( char letter, const sf::Vector2f& pos, const sf::Vector2f& vel, float yAccel )
 {
+	const static sf::Font& defaultFont = getDefaultFont();
 	visualRepresentation.setFont( defaultFont );
 	visualRepresentation.setString( letter );
 	visualRepresentation.setPosition( pos );
