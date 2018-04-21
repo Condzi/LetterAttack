@@ -10,7 +10,6 @@
 #include "Framework.hpp"
 #include "Letter.hpp"
 
-using placeholder_t = char;
 using GameObjectsVariant = std::variant<Letter>;
 
 class LetterGame final :

@@ -50,15 +50,21 @@ void LetterGame::onEnd()
 
 void LetterGame::removeDeadObjects()
 {
+	uint16_t combo = 0;
 	for ( auto it = gameObjects.begin(); it != gameObjects.end(); ) {
 		bool wantDie = false;
 		std::visit( [&]( auto& go ) {
-			if ( wantDie = go.wantDie(); wantDie && go.tag() == "Letter" )
+			if ( wantDie = go.wantDie(); wantDie && go.tag() == "Letter" ) {
 				log( Info, "Score: ", ++score * 100 );
+				++combo;
+			}
 		}, *it );
 		if ( wantDie )
 			it = gameObjects.erase( it );
 		else
 			++it;
 	}
+
+	if ( combo > 1 )
+		log( Info, combo, " combo!" );
 }
