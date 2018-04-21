@@ -23,7 +23,7 @@ sf::FloatRect Letter::getBounds()
 
 bool Letter::onEvent( const sf::Event& ev )
 {
-	if ( ev.type == sf::Event::KeyReleased )
+	if ( ev.type == sf::Event::KeyPressed )
 		if ( ev.key.code == keyToPress )
 			wantToDie = true;
 
