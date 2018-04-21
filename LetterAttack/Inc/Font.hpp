@@ -8,7 +8,7 @@
 #include <array>
 #include <SFML/Graphics/Font.hpp>
 
-inline sf::Font& getDefaultFont()
+inline static sf::Font& getDefaultFont()
 {
 	/*
 		Supplies DejaVuSans as a default font. See assets/fonts directory for

@@ -12,6 +12,15 @@
 
 using GameObjectsVariant = std::variant<Letter>;
 
+struct GameRules final
+{
+	const sf::Time spawnInterval = sf::seconds( 1 );
+	float letterVelocity = 100;
+	const float letterAcceleration = 15;
+	const float letterAccelerationToStartVelocity = 10;
+	const float startYPos = 100;
+};
+
 class LetterGame final :
 	public con::Game
 {
@@ -26,6 +35,8 @@ public:
 
 private:
 	std::vector<GameObjectsVariant> gameObjects;
+	GameRules rules;
+	sf::Time timeSinceLastSpawn;
 	uint16_t score = 0;
 
 	template <typename TLambda>
@@ -49,4 +60,5 @@ private:
 	}
 
 	void removeDeadObjects();
+	bool spawnLetter();
 };

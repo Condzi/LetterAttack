@@ -26,6 +26,7 @@ public:
 	}
 
 private:
+	inline static sf::Font* font = nullptr;
 	bool wantToDie = false;
 	sf::Keyboard::Key keyToPress;
 	float yAcceleration = 0;

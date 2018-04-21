@@ -7,7 +7,8 @@
 
 bool LetterGame::onStart()
 {
-	return spawn<Letter>( 'A', sf::Vector2f( 0, 0 ), sf::Vector2f( 10, 10 ), 1 );
+	timeSinceLastSpawn = rules.spawnInterval;
+	return true;
 }
 
 bool LetterGame::onUpdate( float dt )
@@ -19,6 +20,14 @@ bool LetterGame::onUpdate( float dt )
 	} );
 
 	removeDeadObjects();
+
+	timeSinceLastSpawn -= sf::seconds( dt );
+	if ( timeSinceLastSpawn.asSeconds() < 0 ) {
+		timeSinceLastSpawn = rules.spawnInterval - timeSinceLastSpawn;
+		if ( !spawnLetter() )
+			status = false;
+		rules.letterVelocity += rules.letterAccelerationToStartVelocity * dt;
+	}
 
 	return status;
 }
@@ -46,7 +55,9 @@ bool LetterGame::onDraw( sf::RenderTarget& target )
 }
 
 void LetterGame::onEnd()
-{}
+{
+	// save score?
+}
 
 void LetterGame::removeDeadObjects()
 {
@@ -67,4 +78,13 @@ void LetterGame::removeDeadObjects()
 
 	if ( combo > 1 )
 		log( Info, combo, " combo!" );
+}
+
+bool LetterGame::spawnLetter()
+{
+	auto ch = static_cast<char>( con::Random( static_cast<uint16_t>( 'A' ), static_cast<uint16_t>( 'Z' ) ) );
+	sf::Vector2f pos{ static_cast<float>( con::Random( 0, 12 ) * 25 ), rules.startYPos };
+	sf::Vector2f vel{ 0, rules.letterVelocity };
+	return spawn<Letter>( ch, pos, vel, rules.letterAcceleration );
+
 }
