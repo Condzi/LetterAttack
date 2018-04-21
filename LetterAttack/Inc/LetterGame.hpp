@@ -14,7 +14,10 @@ using GameObjectsVariant = std::variant<Letter>;
 
 struct GameRules final
 {
-	const sf::Time spawnInterval = sf::seconds( 1 );
+	const sf::Time startSpawnInterval = sf::seconds( 1 );
+	sf::Time spawnInterval = startSpawnInterval;
+	const sf::Time minSpawnInterval = sf::seconds( 0.4f );
+	const sf::Time decreasingSpawnIntervalVal = sf::seconds( 0.01f );
 	float letterVelocity = 100;
 	const float letterAcceleration = 150;
 	const float letterAccelerationToStartVelocity = 100;

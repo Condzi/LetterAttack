@@ -33,6 +33,12 @@ bool LetterGame::onUpdate( float dt )
 		rules.letterVelocity += rules.letterAccelerationToStartVelocity * dt;
 	}
 
+	if ( rules.spawnInterval > rules.minSpawnInterval ) {
+		rules.spawnInterval -= sf::seconds( rules.decreasingSpawnIntervalVal.asSeconds() * dt );
+		if ( rules.spawnInterval < rules.minSpawnInterval )
+			rules.spawnInterval = rules.minSpawnInterval;
+	}
+
 	return status;
 }
 
