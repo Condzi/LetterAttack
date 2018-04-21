@@ -5,14 +5,9 @@
 
 #include "Letter.hpp"
 
-#include "Font.hpp"
-
 Letter::Letter( char letter, const sf::Vector2f& pos, const sf::Vector2f& vel, float yAccel )
 {
-	if ( !font )
-		font = &getDefaultFont();
-
-	visualRepresentation.setFont( *font );
+	visualRepresentation.setFont( defaultFont );
 	visualRepresentation.setString( letter );
 	visualRepresentation.setPosition( pos );
 	visualRepresentation.setFillColor( sf::Color::Red );

@@ -5,6 +5,7 @@
 
 #pragma once
 
+#include "Font.hpp"
 #include "IGameObject.hpp"
 
 class Letter final :
@@ -26,7 +27,7 @@ public:
 	}
 
 private:
-	inline static sf::Font* font = nullptr;
+	inline const static sf::Font& defaultFont = getDefaultFont();
 	bool wantToDie = false;
 	sf::Keyboard::Key keyToPress;
 	float yAcceleration = 0;

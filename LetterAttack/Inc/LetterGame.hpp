@@ -16,11 +16,12 @@ struct GameRules final
 {
 	const sf::Time spawnInterval = sf::seconds( 1 );
 	float letterVelocity = 100;
-	const float letterAcceleration = 15;
-	const float letterAccelerationToStartVelocity = 10;
+	const float letterAcceleration = 150;
+	const float letterAccelerationToStartVelocity = 100;
 	const float startYPos = 100;
 };
 
+// TODO: Display time left to spawn, make lifes.
 class LetterGame final :
 	public con::Game
 {
@@ -38,6 +39,7 @@ private:
 	GameRules rules;
 	sf::Time timeSinceLastSpawn;
 	uint16_t score = 0;
+	sf::Text scoreText;
 
 	template <typename TLambda>
 	void loopEveryGameObject( TLambda&& lambda )

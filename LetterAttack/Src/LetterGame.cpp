@@ -4,11 +4,15 @@
 */
 
 #include "LetterGame.hpp"
+#include "Font.hpp"
 
 bool LetterGame::onStart()
 {
+	scoreText.setFont( getDefaultFont() );
+	scoreText.setFillColor( sf::Color::Cyan );
+	scoreText.setPosition( 200, 0 );
 	timeSinceLastSpawn = rules.spawnInterval;
-	return true;
+	return spawnLetter();
 }
 
 bool LetterGame::onUpdate( float dt )
@@ -50,6 +54,7 @@ bool LetterGame::onDraw( sf::RenderTarget& target )
 		if ( !go.onDraw( target ) )
 			status = false;
 	} );
+	target.draw( scoreText );
 
 	return status;
 }
@@ -66,7 +71,7 @@ void LetterGame::removeDeadObjects()
 		bool wantDie = false;
 		std::visit( [&]( auto& go ) {
 			if ( wantDie = go.wantDie(); wantDie && go.tag() == "Letter" ) {
-				log( Info, "Score: ", ++score * 100 );
+				++score;
 				++combo;
 			}
 		}, *it );
@@ -78,6 +83,8 @@ void LetterGame::removeDeadObjects()
 
 	if ( combo > 1 )
 		log( Info, combo, " combo!" );
+
+	scoreText.setString( std::to_string( score * 100 ) );
 }
 
 bool LetterGame::spawnLetter()
