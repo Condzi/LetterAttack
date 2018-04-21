@@ -14,11 +14,6 @@ namespace con
 class Game
 {
 public:
-	enum Status : bool
-	{
-		Continue, Exit
-	};
-
 	enum LogPriority : uint8_t
 	{
 		Info, Warning, Error
@@ -31,10 +26,10 @@ public:
 	Game& operator=( Game&& ) = delete;
 	Game& operator=( const Game& ) = delete;
 
-	virtual Status onStart() {}
-	virtual Status onUpdate( float dt ) {}
-	virtual Status onEvent( const sf::Event& event ) {}
-	virtual Status onDraw( sf::RenderTarget& target ) {}
+	virtual bool onStart() {}
+	virtual bool onUpdate( float dt ) {}
+	virtual bool onEvent( const sf::Event& event ) {}
+	virtual bool onDraw( sf::RenderTarget& target ) {}
 	virtual void onEnd() {}
 
 	void run();
@@ -56,7 +51,7 @@ private:
 	sf::RenderWindow window;
 
 	void gameLoop();
-	Status pollEvents();
-	Status draw();
+	bool pollEvents();
+	bool draw();
 };
 }

@@ -8,14 +8,14 @@
 namespace con
 {
 Game::Game( sf::Vector2u&& winSize, const char* winTitle ) :
-	window( {winSize.x, winSize.y}, winTitle, sf::Style::Close )
+	window( { winSize.x, winSize.y }, winTitle, sf::Style::Close )
 {
 	window.setFramerateLimit( 60 );
 }
 
 void Game::run()
 {
-	if ( onStart() == Exit )
+	if ( !onStart() )
 		return;
 
 	gameLoop();
@@ -29,32 +29,32 @@ void Game::gameLoop()
 	float frameDelta;
 
 	while ( true ) {
-		if ( pollEvents() == Exit )
+		if ( !pollEvents() )
 			return;
 
-		if ( onUpdate( frameDelta ) == Exit )
+		if ( !onUpdate( frameDelta ) )
 			return;
 
-		if ( draw() == Exit )
+		if ( !draw() )
 			return;
 
 		frameDelta = frameClock.restart().asSeconds();
 	}
 }
 
-Game::Status Game::pollEvents()
+bool Game::pollEvents()
 {
 	sf::Event event;
 	while ( window.hasFocus() && window.pollEvent( event ) ) {
 		if ( event.type == sf::Event::Closed )
-			return Exit;
+			return false;
 
-		if ( onEvent( event ) == Exit )
-			return Exit;
+		if ( !onEvent( event ) )
+			return false;
 	}
 }
 
-Game::Status Game::draw()
+bool Game::draw()
 {
 	window.clear();
 	auto status = onDraw( window );
