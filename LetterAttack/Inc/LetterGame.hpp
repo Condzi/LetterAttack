@@ -27,6 +27,7 @@ public:
 
 private:
 	std::vector<GameObjectsVariant> gameObjects;
+	uint16_t score = 0;
 
 	template <typename TLambda>
 	void loopEveryGameObject( TLambda&& lambda )

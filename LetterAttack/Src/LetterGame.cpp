@@ -52,8 +52,9 @@ void LetterGame::removeDeadObjects()
 {
 	for ( auto it = gameObjects.begin(); it != gameObjects.end(); ) {
 		bool wantDie = false;
-		std::visit( [&]( Letter& go ) {
-			wantDie = go.wantDie();
+		std::visit( [&]( auto& go ) {
+			if ( wantDie = go.wantDie(); wantDie && go.tag() == "Letter" )
+				log( Info, "Score: ", ++score * 100 );
 		}, *it );
 		if ( wantDie )
 			it = gameObjects.erase( it );
