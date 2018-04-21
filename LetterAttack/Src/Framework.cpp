@@ -26,7 +26,7 @@ void Game::run()
 void Game::gameLoop()
 {
 	sf::Clock frameClock;
-	float frameDelta;
+	float frameDelta = 0;
 
 	while ( true ) {
 		if ( !pollEvents() )
@@ -52,6 +52,8 @@ bool Game::pollEvents()
 		if ( !onEvent( event ) )
 			return false;
 	}
+
+	return true;
 }
 
 bool Game::draw()

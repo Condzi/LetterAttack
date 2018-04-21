@@ -26,10 +26,10 @@ public:
 	Game& operator=( Game&& ) = delete;
 	Game& operator=( const Game& ) = delete;
 
-	virtual bool onStart() {}
-	virtual bool onUpdate( float dt ) {}
-	virtual bool onEvent( const sf::Event& event ) {}
-	virtual bool onDraw( sf::RenderTarget& target ) {}
+	virtual bool onStart() { return true; }
+	virtual bool onUpdate( float dt ) { return true; }
+	virtual bool onEvent( const sf::Event& event ) { return true; }
+	virtual bool onDraw( sf::RenderTarget& target ) { return true; }
 	virtual void onEnd() {}
 
 	void run();

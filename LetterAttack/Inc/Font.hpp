@@ -51,4 +51,5 @@ inline sf::Font& getDefaultFont()
 	}
 
 	font.loadFromMemory( &fontData, fontData.size() );
+	return font;
 }
