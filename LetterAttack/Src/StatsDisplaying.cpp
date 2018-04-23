@@ -8,16 +8,17 @@
 #include "Font.hpp"
 
 StatsDisplaying::StatsDisplaying( PlayerStats& stats ) :
-	statsRef( stats )
+	statsPtr( &stats )
 {}
 
 bool StatsDisplaying::onDraw( sf::RenderTarget& target )
 {
 	static auto& font = getDefaultFont();
+	auto& statsRef = *statsPtr;
 	sf::Text score;
 	score.setFont( font );
 	score.setFillColor( sf::Color::Cyan );
-	score.setString( std::to_string( statsRef.score ) );
+	score.setString( std::to_string( statsRef.score * 100 ) );
 	sf::Text lifes;
 	lifes.setFont( font );
 	lifes.setFillColor( sf::Color::Green );

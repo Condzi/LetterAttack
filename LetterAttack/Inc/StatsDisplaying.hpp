@@ -22,5 +22,5 @@ public:
 	bool onDraw( sf::RenderTarget& target );
 
 private:
-	PlayerStats& statsRef;
+	PlayerStats* statsPtr = nullptr;
 };
