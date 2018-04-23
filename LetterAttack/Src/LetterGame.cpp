@@ -133,7 +133,7 @@ void LetterGame::playAgain()
 	stats.lifes = 10;
 
 	loopEveryGameObject( [&]( auto& letter ) {
-		if ( letter.tag() == "Letter" ) 			{
+		if ( letter.tag() == "Letter" ) {
 			stats.score--; // workaround - when this letters will be killd score will be added, so we must 
 			// substract it to make it 0 in the end.
 			letter.kill();
