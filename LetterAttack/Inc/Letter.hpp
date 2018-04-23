@@ -19,7 +19,6 @@ public:
 	bool onEvent( const sf::Event& ev ) override;
 	bool onUpdate( float dt ) override;
 	bool onDraw( sf::RenderTarget& target ) override;
-	bool wantDie() override;
 
 	const char* tag() override
 	{
@@ -27,7 +26,6 @@ public:
 	}
 
 private:
-	bool wantToDie = false;
 	sf::Keyboard::Key keyToPress;
 	float yAcceleration = 0;
 	sf::Vector2f velocity;

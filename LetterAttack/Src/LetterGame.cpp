@@ -28,6 +28,8 @@ bool LetterGame::onUpdate( float dt )
 			status = false;
 	} );
 
+	checkIfLetterIsOut();
+
 	removeDeadObjects();
 
 	timeSinceLastSpawn -= sf::seconds( dt );
@@ -85,7 +87,6 @@ void LetterGame::removeDeadObjects()
 			}
 		}, *it );
 
-		// what the fuck 
 		if ( wantDie )
 			it = gameObjects.erase( it );
 		else
@@ -103,4 +104,19 @@ bool LetterGame::spawnLetter()
 	sf::Vector2f vel{ 0, rules.letterVelocity };
 
 	return spawn<Letter>( ch, pos, vel, rules.letterAcceleration );
+}
+
+void LetterGame::checkIfLetterIsOut()
+{
+	// Passing Letter& letter doesnt work. Hmm.
+	loopEveryGameObject( [&]( auto& letter ) {
+		using T = std::decay_t<decltype( letter )>;
+		if constexpr ( std::is_same_v<T, Letter> )
+		{
+			if ( auto bounds = letter.getBounds(); bounds.top + bounds.height > 600 ) {
+				stats.lifes--;
+				letter.kill();
+			}
+		}
+	} );
 }

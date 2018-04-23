@@ -48,7 +48,7 @@ private:
 	void loopEveryGameObject( TLambda&& lambda )
 	{
 		for ( auto& go : gameObjects )
-			std::visit( lambda, go );
+			std::visit( std::forward<TLambda>( lambda ), go );
 	}
 
 	template <typename TGameObject, typename ...TArgs>
@@ -66,4 +66,5 @@ private:
 
 	void removeDeadObjects();
 	bool spawnLetter();
+	void checkIfLetterIsOut();
 };

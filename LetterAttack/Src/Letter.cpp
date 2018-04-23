@@ -26,7 +26,7 @@ bool Letter::onEvent( const sf::Event& ev )
 {
 	if ( ev.type == sf::Event::KeyPressed )
 		if ( ev.key.code == keyToPress )
-			wantToDie = true;
+			kill();
 
 	return true;
 }
@@ -43,11 +43,6 @@ bool Letter::onDraw( sf::RenderTarget& target )
 {
 	target.draw( visualRepresentation );
 	return true;
-}
-
-bool Letter::wantDie()
-{
-	return wantToDie;
 }
 
 void Letter::letterToKey( char letter )

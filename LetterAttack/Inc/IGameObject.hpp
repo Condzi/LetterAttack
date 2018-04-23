@@ -15,9 +15,13 @@ public:
 	virtual bool onKill() { return true; }
 	virtual bool onEvent( const sf::Event& event ) { return true; }
 	virtual bool onDraw( sf::RenderTarget& target ) { return true; }
-	virtual bool wantDie() { return false; }
+	void kill() { die = true; }
+	bool wantDie() { return die; }
 	virtual const char* tag()
 	{
 		return "";
 	}
+
+private:
+	bool die = false;
 };
