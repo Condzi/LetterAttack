@@ -67,4 +67,5 @@ private:
 	void removeDeadObjects();
 	bool spawnLetter();
 	void checkIfLetterIsOut();
+	void playAgain();
 };

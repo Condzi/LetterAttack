@@ -46,6 +46,9 @@ bool LetterGame::onUpdate( float dt )
 			rules.spawnInterval = rules.minSpawnInterval;
 	}
 
+	if ( stats.lifes <= 0 )
+		playAgain();
+
 	return status;
 }
 
@@ -117,6 +120,23 @@ void LetterGame::checkIfLetterIsOut()
 				stats.lifes--;
 				letter.kill();
 			}
+		}
+	} );
+}
+
+void LetterGame::playAgain()
+{
+	rules.spawnInterval = rules.startSpawnInterval;
+	rules.letterVelocity = 100;
+	stats.highscore = stats.score;
+	stats.score = 0;
+	stats.lifes = 10;
+
+	loopEveryGameObject( [&]( auto& letter ) {
+		if ( letter.tag() == "Letter" ) 			{
+			stats.score--; // workaround - when this letters will be killd score will be added, so we must 
+			// substract it to make it 0 in the end.
+			letter.kill();
 		}
 	} );
 }

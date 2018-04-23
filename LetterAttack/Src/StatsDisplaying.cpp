@@ -23,11 +23,17 @@ bool StatsDisplaying::onDraw( sf::RenderTarget& target )
 	lifes.setFont( font );
 	lifes.setFillColor( sf::Color::Green );
 	lifes.setString( std::to_string( statsRef.lifes ) );
+	sf::Text highscore;
+	highscore.setFont( font );
+	highscore.setFillColor( sf::Color::Red );
+	highscore.setString( std::to_string( statsRef.highscore * 100 ) );
 
-	lifes.setPosition( 600 - lifes.getGlobalBounds().width, 0 );
+	lifes.setPosition( 600 - lifes.getGlobalBounds().width * 1.1, 0 );
+	highscore.setPosition( 300, 0 );
 
 	target.draw( score );
 	target.draw( lifes );
+	target.draw( highscore );
 
 	return true;
 }
